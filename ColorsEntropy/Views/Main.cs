@@ -10,6 +10,7 @@ namespace ColorsEntropy {
 
         private string[] filePaths = null; // Multiselección
         private bool action = true;
+        private Icon icon = Properties.Resources.Icon;
 
         public colorsEntropyView() {
             InitializeComponent();
@@ -23,11 +24,11 @@ namespace ColorsEntropy {
                 int edgeLength;
                 if ((edgeLength = ColorsEntropyController.GetKeyEdgeLength()) > 0) {
                     ColorsEntropyController.CreateKey(edgeLength);
-                    ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.NEW_KEY_CREATED, false, null);
+                    ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.NEW_KEY_CREATED, false, this.icon);
                 }
                 Application.Exit();
             } else if (!ColorsEntropyController.CheckKey()) {
-                ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_ERROR_TITLE, Constants.KEY_FORMAT_ERROR, false, null);
+                ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_ERROR_TITLE, Constants.KEY_FORMAT_ERROR, false, this.icon);
                 Application.Exit();
             } else {
                 this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -68,7 +69,7 @@ namespace ColorsEntropy {
                 this.actionLbl.Text = Constants.SCREEN_CLICK;
                 this.openFileBtn.Enabled = false;
             } else {
-                ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.CANCELED_OPERATION, false, null);
+                ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.CANCELED_OPERATION, false, this.icon);
             }
         }
 

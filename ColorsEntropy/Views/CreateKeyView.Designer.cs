@@ -24,6 +24,7 @@ namespace ColorsEntropy.Views {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateKeyView));
             this.createKeyCBox = new System.Windows.Forms.ComboBox();
             this.createKeyGBox = new System.Windows.Forms.GroupBox();
             this.createKeyBtn = new System.Windows.Forms.Button();
@@ -65,6 +66,7 @@ namespace ColorsEntropy.Views {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(423, 116);
             this.Controls.Add(this.createKeyGBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateKeyView";
             this.Text = "Creación de clave";
             this.Load += new System.EventHandler(this.CreateKeyView_Load);
