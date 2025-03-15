@@ -31,9 +31,9 @@ namespace ColorsEntropy {
             this.optionsStripTs = new System.Windows.Forms.ToolStrip();
             this.openFileBtn = new System.Windows.Forms.ToolStripButton();
             this.separatorStrip1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.separatorStrip2 = new System.Windows.Forms.ToolStripSeparator();
             this.actionLbl = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.optionsStripTs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +44,7 @@ namespace ColorsEntropy {
             this.actionFileBtn.Name = "actionFileBtn";
             this.actionFileBtn.Size = new System.Drawing.Size(178, 57);
             this.actionFileBtn.TabIndex = 0;
-            this.actionFileBtn.Text = "ACCIÓN";
+            this.actionFileBtn.Text = " ";
             this.actionFileBtn.UseVisualStyleBackColor = true;
             this.actionFileBtn.Click += new System.EventHandler(this.ActionFileBtn_Click);
             // 
@@ -90,6 +90,15 @@ namespace ColorsEntropy {
             this.separatorStrip1.Name = "separatorStrip1";
             this.separatorStrip1.Size = new System.Drawing.Size(6, 27);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // separatorStrip2
             // 
             this.separatorStrip2.Name = "separatorStrip2";
@@ -101,15 +110,6 @@ namespace ColorsEntropy {
             this.actionLbl.Name = "actionLbl";
             this.actionLbl.Size = new System.Drawing.Size(18, 24);
             this.actionLbl.Text = " ";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // colorsEntropyView
             // 

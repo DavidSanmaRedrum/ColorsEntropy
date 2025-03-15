@@ -1,6 +1,8 @@
 ﻿using ColorsEntropy.Functionalities;
+using ColorsEntropy.Models;
 using ColorsEntropy.Utils;
 using ColorsEntropy.Views;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace ColorsEntropy.Controllers {
@@ -45,6 +47,11 @@ namespace ColorsEntropy.Controllers {
 
         public static int GetKeyEdgeLength() {
             return keyEdgeLength;
+        }
+
+        public static int CallCEMessageBox(int height, string title, string message, bool acceptAndCancel, Icon icon) {
+            ColorsEntropyMessageBox messageBox = new ColorsEntropyMessageBox(height, title, message, acceptAndCancel, icon);
+            return messageBox.ShowCEMessageBox();
         }
 
     }

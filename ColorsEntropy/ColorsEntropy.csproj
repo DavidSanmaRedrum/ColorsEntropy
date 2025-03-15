@@ -64,6 +64,7 @@
     <Compile Include="Controllers\ColorsEntropyController.cs" />
     <Compile Include="Functionalities\FileFunctionalities.cs" />
     <Compile Include="Functionalities\KeyFunctionalities.cs" />
+    <Compile Include="Models\ColorsEntropyMessageBox.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Views\CreateKeyView.cs">
       <SubType>Form</SubType>

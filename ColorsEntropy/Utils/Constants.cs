@@ -3,12 +3,33 @@
 namespace ColorsEntropy.Utils {
     class Constants {
 
+        // Cifrado
         public const int MAX_LIMIT_BYTE = 255;
         public const int MIN_LIMIT_COLOR_KEY = 1;
         public const int MAX_LIMIT_KEY_SIZE_COMBO = 40;
         public const int MIN_LIMIT_KEY_SIZE_COMBO = 10;
         public const int ACTION_TIMES = 2;
 
+
+        // Control MessageBox
+        public const int COLORS_MSG_BOX_LETTER_WIDTH = 6;
+        public const int COLORS_MSG_BOX_RIGHT_SPACE = 27;
+        public const int COLORS_MSG_BOX_HEIGHT = 110;
+        public const int COLORS_MSG_BOX_LABEL_X = 10;
+        public const int COLORS_MSG_BOX_LABEL_Y = 15;
+        public const int COLORS_MSG_BOX_BUTTON_Y = 40;
+        public const int DEFAULT_COMMONS_FUNCTIONALITY_CODE = 2;
+        public const int CANCEL_FUNCTIONALITY_CODE = 0;
+        public const int SECONDARY_FUNCTIONALITY_CODE = 1;
+        public const string COLORS_MSG_BOX_ACCEPT_BUTTON = "Aceptar";
+        public const string COLORS_MSG_BOX_CANCEL_BUTTON = "Cancelar";
+        public const string COLORS_MSG_BOX_INFO_TITLE = "Información";
+        public const string COLORS_MSG_BOX_ERROR_TITLE = "Error";
+        public const string KEY_FORMAT_ERROR = "CLAVE - La clave tiene un formato erróneo.";
+        public const string NEW_KEY_CREATED = "CLAVE - Se ha creado la clave.";
+        
+
+        // Clave
         public const string SAVE_KEY_PATH = "./KEY.jpg";
         public const string COLORS_ENTROPY_EXTENSION = ".cee";
         public const string ONLY_NUMBERS_REGEX = @"\d+";
@@ -19,17 +40,8 @@ namespace ColorsEntropy.Utils {
         public const string ENABLED_ACTION_BUTTON_TEXT = "ACCIÓN";
         public const string DISABLED_STATE_ACTION_BUTTON = "# # #";
         public const string SCREEN_CLICK = "CLIC EN LA PANTALLA";
-
-
-
-        public const char COMMA = ',';
-
-        // Color formulario y controles
-        public static Color CONTROLS_GENERAL_COLOR_ONE = Color.FromArgb(32, 32, 32);
-        public static Color CONTROLS_GENERAL_COLOR_TWO = Color.FromArgb(25, 25, 25);
-
-
         public static int[] KEY_SIZES = { 10, 15, 20, 25, 30, 35, 40 };
+              
         public static byte[] DISORDERED_BYTE_LEGEND = {
             135,
             30,
@@ -288,6 +300,14 @@ namespace ColorsEntropy.Utils {
             192,
             189
         };
+
+        // Común
+        public const char COMMA = ',';
+        public const string CANCELED_OPERATION = "La operación se ha cancelado.";
+
+        // Color formulario y controles
+        public static Color CONTROLS_GENERAL_COLOR_ONE = Color.FromArgb(32, 32, 32);
+        public static Color CONTROLS_GENERAL_COLOR_TWO = Color.FromArgb(25, 25, 25);
 
     }
 }
