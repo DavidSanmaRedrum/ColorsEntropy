@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("ColorsEntropy")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Cifrador para cualquier archivo.                                Mi GitHub: https://github.com/DavidSanmaRedrum")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("David Sanma")]
 [assembly: AssemblyProduct("ColorsEntropy")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]

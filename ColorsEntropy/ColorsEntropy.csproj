@@ -69,6 +69,12 @@
     <Compile Include="Functionalities\KeyFunctionalities.cs" />
     <Compile Include="Models\ColorsEntropyMessageBox.cs" />
     <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Views\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateKeyView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CreateKeyView.resx">
       <DependentUpon>CreateKeyView.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +138,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutBigImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OnlyText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CancelActionImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

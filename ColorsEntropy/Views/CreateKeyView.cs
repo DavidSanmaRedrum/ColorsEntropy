@@ -8,6 +8,7 @@ namespace ColorsEntropy.Views {
     public partial class CreateKeyView : Form {
         public CreateKeyView() {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         public void KeyViewShow() {

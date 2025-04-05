@@ -44,8 +44,8 @@ namespace ColorsEntropy.Functionalities {
         }
 
         public static bool IsValidKey() { // Haré que devuelva mensajes de texto.
-            key = new Bitmap(fileFunctionalities.OpenFile(Constants.SAVE_KEY_PATH));
             try {
+                key = new Bitmap(fileFunctionalities.OpenFile(Constants.SAVE_KEY_PATH));
                 int[] keySizes = Constants.KEY_SIZES;
                 if (!keySizes.Contains(key.Width) || !keySizes.Contains(key.Height)) return false;
                 for (int row = 0; row < key.Height; row++) {
@@ -96,7 +96,7 @@ namespace ColorsEntropy.Functionalities {
                                 // Cada píxel son 4 posiciones del array y a cada píxel se sumarán o restarán en orden secuencial esas posiciones.
                                 MatchCollection colorParams = Regex.Matches(key.GetPixel(row, col).ToString(), Constants.ONLY_NUMBERS_REGEX);
                                 foreach (Match match in colorParams) {
-                                    if (int.TryParse(match.Value, out int pixelParam)) {
+                                    if (int.TryParse(match.Value, out int pixelParam)) { // Convertir un string a int de manera segura
                                         int fileValue = Convert.ToInt32(file[i]);
                                         if (encrypt) {
                                             int preparedValue = fileValue + pixelParam; // Se suma el parámetro del pixel a el valor del byte del fichero.

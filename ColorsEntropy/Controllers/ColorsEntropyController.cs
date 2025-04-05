@@ -24,13 +24,13 @@ namespace ColorsEntropy.Controllers {
         }
 
         public static void EncryptFiles(string[] paths) {
-            Task task = Task.Run(() => {
+            Task.Run(() => {
                 KeyFunctionalities.KeyAction(paths, true, Constants.ACTION_TIMES);
             });
         }
 
         public static void DecryptFiles(string[] paths) {
-            Task task = Task.Run(() => {
+            Task.Run(() => {
                 KeyFunctionalities.KeyAction(paths, false, Constants.ACTION_TIMES);
             });
         }

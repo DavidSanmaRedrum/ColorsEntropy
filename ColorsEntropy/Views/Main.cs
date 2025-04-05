@@ -1,8 +1,8 @@
 ﻿using ColorsEntropy.Controllers;
 using ColorsEntropy.Utils;
+using ColorsEntropy.Views;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
@@ -34,15 +34,11 @@ namespace ColorsEntropy {
             } else {
                 this.FormBorderStyle = FormBorderStyle.FixedSingle;
                 this.MaximizeBox = false;
-                this.BackColor = Constants.CONTROLS_GENERAL_COLOR_ONE;
-                this.actionLbl.Text = Constants.NEUTRAL_STATE;
                 this.actionLbl.ForeColor = Color.White;
                 this.optionsStripTs.BackColor = Constants.CONTROLS_GENERAL_COLOR_TWO;
-                actionFileBtn.Enabled = false;
-                actionFileBtn.Text = Constants.DISABLED_STATE_ACTION_BUTTON;
-                openFileOfl.Filter = Constants.OPEN_FILE_DIALOG_FILTER;
-                openFileOfl.FileName = "";
-                openFileOfl.Multiselect = true;
+                this.openFileOfl.Filter = Constants.OPEN_FILE_DIALOG_FILTER;
+                this.openFileOfl.Multiselect = true;
+                this.ResetSystem();
                 this.Opacity = 1;
             }
         }
@@ -53,36 +49,38 @@ namespace ColorsEntropy {
             } else {
                 ColorsEntropyController.DecryptFiles(this.filePaths);
             }
-            actionFileBtn.Text = Constants.DISABLED_STATE_ACTION_BUTTON;
-            this.actionFileBtn.Enabled = false;
-            this.openFileBtn.Enabled = true;
-            this.filePaths = null;
-            this.BackColor = Constants.CONTROLS_GENERAL_COLOR_ONE;
-            this.actionLbl.ForeColor = Color.Black;
-            this.actionLbl.Text = Constants.NEUTRAL_STATE;
-            this.actionLbl.ForeColor = Color.White;
-            this.action = true;
+            this.ResetSystem();
         }
 
         private void OpenFileBtn_Click(object sender, EventArgs e) {
-            if (openFileOfl.ShowDialog() == DialogResult.OK) {
-                this.filePaths = openFileOfl.FileNames;
+            if (this.openFileOfl.ShowDialog() == DialogResult.OK) {
+                this.filePaths = this.openFileOfl.FileNames;
                 this.actionLbl.Text = Constants.SCREEN_CLICK;
+                this.cancelActionBtn.Enabled = true;
                 this.openFileBtn.Enabled = false;
             } else {
                 ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.CANCELED_OPERATION, false, this.icon);
             }
         }
 
+        private void CancelActionBtn_Click(object sender, EventArgs e) {
+            this.ResetSystem();
+        }
+
+        private void AboutBtn_Click(object sender, EventArgs e) {
+            AboutBox about = new AboutBox();
+            about.ShowDialog();
+        }
+
         private void ColorsEntropyView_MouseDown(object sender, MouseEventArgs e) {
             Color stateColor = Constants.CONTROLS_GENERAL_COLOR_ONE;
             if (this.action && this.filePaths != null) { // Encriptar
-                this.action = false;
+                this.action = false; 
                 stateColor = Color.Red;
                 this.actionLbl.Text = Constants.ENCRYPT_TEXT;
                 this.actionLbl.ForeColor = stateColor;
-                actionFileBtn.Text = Constants.ENABLED_ACTION_BUTTON_TEXT;
-                actionFileBtn.Enabled = true;
+                this.actionFileBtn.Text = Constants.ENABLED_ACTION_BUTTON_TEXT;
+                this.actionFileBtn.Enabled = true;
             } else if (this.filePaths != null) { // Desencriptar
                 this.action = true;
                 stateColor = Color.Green;
@@ -92,6 +90,19 @@ namespace ColorsEntropy {
             this.BackColor = stateColor;
         }
 
+        private void ResetSystem() {
+            this.actionFileBtn.Text = Constants.DISABLED_STATE_ACTION_BUTTON;
+            this.actionFileBtn.Enabled = false;
+            this.openFileBtn.Enabled = true;
+            this.cancelActionBtn.Enabled = false;
+            this.filePaths = null;
+            this.openFileOfl.FileName = "";
+            this.BackColor = Constants.CONTROLS_GENERAL_COLOR_ONE;
+            this.actionLbl.ForeColor = Color.Black;
+            this.actionLbl.Text = Constants.NEUTRAL_STATE;
+            this.actionLbl.ForeColor = Color.White;
+            this.action = true;
+        }
         
     }
 }
