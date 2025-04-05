@@ -39,7 +39,7 @@ namespace ColorsEntropy.Utils {
         public const string NEUTRAL_STATE = "· · ·";
         public const string ENABLED_ACTION_BUTTON_TEXT = "ACCIÓN";
         public const string DISABLED_STATE_ACTION_BUTTON = "# # #";
-        public const string SCREEN_CLICK = "CLIC EN LA PANTALLA";
+        public const string SCREEN_CLICK = "MODO: CLIC EN EL PANEL";
         public static int[] KEY_SIZES = { 10, 15, 20, 25, 30, 35, 40 };
               
         public static byte[] DISORDERED_BYTE_LEGEND = {

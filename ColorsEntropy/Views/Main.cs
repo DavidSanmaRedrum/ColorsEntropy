@@ -20,6 +20,13 @@ namespace ColorsEntropy {
         }
 
         private void ColorsEntropyView_Load(object sender, EventArgs e) {
+
+            Bitmap image = new Bitmap("C:\\Users\\Sanma\\Desktop\\Nuevacarpeta\\Icon.png");
+            IntPtr pointer = image.GetHicon();
+            Icon icon = Icon.FromHandle(pointer);
+            FileStream fs = new FileStream("C:\\Users\\Sanma\\Desktop\\Nuevacarpeta\\Icon.ico", FileMode.Create);
+            icon.Save(fs);
+
             if (!File.Exists(Constants.SAVE_KEY_PATH)) {
                 ColorsEntropyController.MakeCreateKeyView();
                 int edgeLength;
