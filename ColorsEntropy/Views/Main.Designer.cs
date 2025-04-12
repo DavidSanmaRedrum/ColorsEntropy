@@ -31,10 +31,12 @@ namespace ColorsEntropy {
             this.optionsStripTs = new System.Windows.Forms.ToolStrip();
             this.openFileBtn = new System.Windows.Forms.ToolStripButton();
             this.separatorStrip1 = new System.Windows.Forms.ToolStripSeparator();
-            this.cancelActionBtn = new System.Windows.Forms.ToolStripButton();
+            this.passwordActionBtn = new System.Windows.Forms.ToolStripButton();
             this.separatorStrip2 = new System.Windows.Forms.ToolStripSeparator();
-            this.aboutBtn = new System.Windows.Forms.ToolStripButton();
+            this.cancelActionBtn = new System.Windows.Forms.ToolStripButton();
             this.separatorStrip3 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutBtn = new System.Windows.Forms.ToolStripButton();
+            this.separatorStrip4 = new System.Windows.Forms.ToolStripSeparator();
             this.actionLbl = new System.Windows.Forms.ToolStripLabel();
             this.optionsStripTs.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +46,7 @@ namespace ColorsEntropy {
             this.actionFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.actionFileBtn.Location = new System.Drawing.Point(119, 64);
             this.actionFileBtn.Name = "actionFileBtn";
-            this.actionFileBtn.Size = new System.Drawing.Size(178, 57);
+            this.actionFileBtn.Size = new System.Drawing.Size(201, 57);
             this.actionFileBtn.TabIndex = 0;
             this.actionFileBtn.Text = " ";
             this.actionFileBtn.UseVisualStyleBackColor = true;
@@ -67,14 +69,16 @@ namespace ColorsEntropy {
             this.optionsStripTs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileBtn,
             this.separatorStrip1,
-            this.cancelActionBtn,
+            this.passwordActionBtn,
             this.separatorStrip2,
-            this.aboutBtn,
+            this.cancelActionBtn,
             this.separatorStrip3,
+            this.aboutBtn,
+            this.separatorStrip4,
             this.actionLbl});
             this.optionsStripTs.Location = new System.Drawing.Point(0, 0);
             this.optionsStripTs.Name = "optionsStripTs";
-            this.optionsStripTs.Size = new System.Drawing.Size(411, 27);
+            this.optionsStripTs.Size = new System.Drawing.Size(426, 27);
             this.optionsStripTs.TabIndex = 2;
             this.optionsStripTs.Text = "toolStrip1";
             // 
@@ -94,6 +98,21 @@ namespace ColorsEntropy {
             this.separatorStrip1.Name = "separatorStrip1";
             this.separatorStrip1.Size = new System.Drawing.Size(6, 27);
             // 
+            // passwordActionBtn
+            // 
+            this.passwordActionBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.passwordActionBtn.Image = global::ColorsEntropy.Properties.Resources.OpenFileImagePassword;
+            this.passwordActionBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.passwordActionBtn.Name = "passwordActionBtn";
+            this.passwordActionBtn.Size = new System.Drawing.Size(29, 24);
+            this.passwordActionBtn.Text = "Acción por contraseña";
+            this.passwordActionBtn.Click += new System.EventHandler(this.passwordActionBtn_Click);
+            // 
+            // separatorStrip2
+            // 
+            this.separatorStrip2.Name = "separatorStrip2";
+            this.separatorStrip2.Size = new System.Drawing.Size(6, 27);
+            // 
             // cancelActionBtn
             // 
             this.cancelActionBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -104,10 +123,10 @@ namespace ColorsEntropy {
             this.cancelActionBtn.Text = "Cancelar acción";
             this.cancelActionBtn.Click += new System.EventHandler(this.CancelActionBtn_Click);
             // 
-            // separatorStrip2
+            // separatorStrip3
             // 
-            this.separatorStrip2.Name = "separatorStrip2";
-            this.separatorStrip2.Size = new System.Drawing.Size(6, 27);
+            this.separatorStrip3.Name = "separatorStrip3";
+            this.separatorStrip3.Size = new System.Drawing.Size(6, 27);
             // 
             // aboutBtn
             // 
@@ -119,10 +138,10 @@ namespace ColorsEntropy {
             this.aboutBtn.Text = "Acerca de";
             this.aboutBtn.Click += new System.EventHandler(this.AboutBtn_Click);
             // 
-            // separatorStrip3
+            // separatorStrip4
             // 
-            this.separatorStrip3.Name = "separatorStrip3";
-            this.separatorStrip3.Size = new System.Drawing.Size(6, 27);
+            this.separatorStrip4.Name = "separatorStrip4";
+            this.separatorStrip4.Size = new System.Drawing.Size(6, 27);
             // 
             // actionLbl
             // 
@@ -135,7 +154,7 @@ namespace ColorsEntropy {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 166);
+            this.ClientSize = new System.Drawing.Size(426, 166);
             this.Controls.Add(this.optionsStripTs);
             this.Controls.Add(this.decryptFileBtn);
             this.Controls.Add(this.actionFileBtn);
@@ -164,6 +183,8 @@ namespace ColorsEntropy {
         private System.Windows.Forms.ToolStripButton aboutBtn;
         private System.Windows.Forms.ToolStripButton cancelActionBtn;
         private System.Windows.Forms.ToolStripSeparator separatorStrip3;
+        private System.Windows.Forms.ToolStripButton passwordActionBtn;
+        private System.Windows.Forms.ToolStripSeparator separatorStrip4;
     }
 }
 

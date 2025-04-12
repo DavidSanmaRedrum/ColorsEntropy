@@ -70,7 +70,6 @@ namespace ColorsEntropy.Views {
             this.Name = "CreateKeyView";
             this.Text = "Creación de clave";
             this.Load += new System.EventHandler(this.CreateKeyView_Load);
-            this.Shown += new System.EventHandler(this.CreateKeyView_Shown);
             this.createKeyGBox.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorsEntropy.Utils;
+using System;
 using System.IO;
 
 namespace ColorsEntropy.Functionalities {
@@ -24,6 +25,25 @@ namespace ColorsEntropy.Functionalities {
 
         public void DeleteFile(string path) {
             File.Delete(path);
+        }
+
+        public void PreparedSaveFile(bool mode, bool actionType, string currentPath, byte[] file) {
+            this.SaveFile(currentPath, file); // Sobreescribir
+
+            string extension = Constants.COLORS_ENTROPY_EXTENSION;
+            if (!actionType) {
+                extension = Constants.COLORS_ENTROPY_PASSWORD_EXTENSION;
+            }
+
+            string preparedCurrentPath = currentPath;
+            if (mode) {
+                preparedCurrentPath = currentPath + extension;
+            } else {
+                if (preparedCurrentPath.EndsWith(extension)) {
+                    preparedCurrentPath = preparedCurrentPath.Substring(0, preparedCurrentPath.LastIndexOf("."));
+                }
+            }
+            this.RenameFile(currentPath, preparedCurrentPath);
         }
     }
 }

@@ -61,28 +61,15 @@ namespace ColorsEntropy.Functionalities {
             }
         }
 
-        public static void RemoveKey() {
-            using (Bitmap temporalKey = new Bitmap(key)) {
-                for (int row = 0; row < temporalKey.Height; row++) {
-                    for (int col = 0; col < temporalKey.Width; col++) {
-                        temporalKey.SetPixel(row, col, Color.FromArgb(0, 0, 0, 0));
-                    }
-                }
-                try {
-                    //key.Dispose();
-                    temporalKey.Save(Constants.SAVE_KEY_PATH, ImageFormat.Jpeg);
-                    fileFunctionalities.DeleteFile(Constants.SAVE_KEY_PATH);
-                } catch (Exception e) {
-                    Console.WriteLine(e.ToString());
-                }
-            }  
-        }  
+        public static void KeyAction(string[] paths, bool encrypt, string linearPassword, int times) {
+            if (null != linearPassword && linearPassword.Length >= Constants.PASSWORD_MIN_LENGTH) {
+                LinearKeyAction(paths, linearPassword, encrypt, times);
+                return;
+            }
 
-        public static void KeyAction(string[] paths, bool encrypt, int times) {
             for (int nPath = 0; nPath < paths.Length; nPath ++) { // Multiselección: Un fichero por iteración
                 byte[] file = fileFunctionalities.GetFile(paths[nPath]);
                 int i;
-                int byteLimitMax = Constants.MAX_LIMIT_BYTE + 1;
                 for (int time = 0; time < times; time ++) {
                     i = 0; // Renicio del while para una nueva encriptación, si no, no entrará en el while la segunda vez. 
                     // Transposición encriptar
@@ -98,20 +85,7 @@ namespace ColorsEntropy.Functionalities {
                                 foreach (Match match in colorParams) {
                                     if (int.TryParse(match.Value, out int pixelParam)) { // Convertir un string a int de manera segura
                                         int fileValue = Convert.ToInt32(file[i]);
-                                        if (encrypt) {
-                                            int preparedValue = fileValue + pixelParam; // Se suma el parámetro del pixel a el valor del byte del fichero.
-                                            if (preparedValue > Constants.MAX_LIMIT_BYTE) { // Si entra, debe ser mayor a 255
-                                                                                            // Se resta el máximo de bytes posibles (256) para reducirlo a un valor aceptable en función del pixelParam.
-                                                preparedValue -= byteLimitMax;
-                                            }
-                                            file[i] = (byte)preparedValue;
-                                        } else {
-                                            int preparedValue = fileValue - pixelParam;
-                                            if (preparedValue < 0) {
-                                                preparedValue += byteLimitMax;
-                                            }
-                                            file[i] = (byte)preparedValue;
-                                        }
+                                        ActionControl(encrypt, fileValue, pixelParam, i, file);
                                         /* Control por si los 4 parámetros de los colores y la longitud del array no son múltiplos (encajan justamente).
                                             Se rompe el bucle para esto. Esto es viable porque se controla desde el bucle interno.*/
                                         if (i == file.Length - 1) {
@@ -126,25 +100,60 @@ namespace ColorsEntropy.Functionalities {
                             }
                         }
                     }
-
                     // Transposición desencriptar
                     if (!encrypt) {
                         Caesar(file, key.Width, encrypt);
                     }
-                }   
-                
-                string currentPath = paths[nPath];
-                fileFunctionalities.SaveFile(currentPath, file); // Sobreescribir
+                }
+                fileFunctionalities.PreparedSaveFile(encrypt, true, paths[nPath], file);
+            }
+        }
 
-                string preparedCurrentPath = currentPath;
-                if (encrypt) {
-                    preparedCurrentPath = currentPath + Constants.COLORS_ENTROPY_EXTENSION;
-                } else {
-                    if (preparedCurrentPath.EndsWith(Constants.COLORS_ENTROPY_EXTENSION)) {
-                        preparedCurrentPath = preparedCurrentPath.Substring(0, preparedCurrentPath.LastIndexOf("."));
+        private static void LinearKeyAction(string[] paths, string key, bool encrypt, int times) {
+            int i;
+            byte[] file;
+            for (int nPath = 0; nPath < paths.Length; nPath++) {
+                file = fileFunctionalities.GetFile(paths[nPath]);
+                for (int time = 0; time < times; time++) {
+                    i = 0;
+                    // Transposición encriptar
+                    if (encrypt) {
+                        Caesar(file, key.Length, encrypt);
+                    }
+                    while (i < file.Length) {
+                        for (int kPos = 0; kPos < key.Length; kPos++) {
+                            ActionControl(encrypt, file[i], key[kPos], i, file);
+                            if (i == file.Length - 1) {
+                                i = file.Length;
+                                break;
+                            };
+                            i++;
+                        }
+                    }
+                    // Transposición desencriptar
+                    if (!encrypt) {
+                        Caesar(file, key.Length, encrypt);
                     }
                 }
-                fileFunctionalities.RenameFile(currentPath, preparedCurrentPath);
+                fileFunctionalities.PreparedSaveFile(encrypt, false, paths[nPath], file);
+            }
+        }
+
+        private static void ActionControl(bool mode, int fileValue, int keyValue, int index, byte[] file) {
+            int byteLimitMax = Constants.MAX_LIMIT_BYTE + 1;
+            if (mode) {
+                int preparedValue = fileValue + keyValue; // Se suma el parámetro del pixel a el valor del byte del fichero.
+                if (preparedValue > Constants.MAX_LIMIT_BYTE) { // Si entra, debe ser mayor a 255
+                                                                // Se resta el máximo de bytes posibles (256) para reducirlo a un valor aceptable en función del pixelParam.
+                    preparedValue -= byteLimitMax;
+                }
+                file[index] = (byte)preparedValue;
+            } else {
+                int preparedValue = fileValue - keyValue;
+                if (preparedValue < 0) {
+                    preparedValue += byteLimitMax;
+                }
+                file[index] = (byte)preparedValue;
             }
         }
 

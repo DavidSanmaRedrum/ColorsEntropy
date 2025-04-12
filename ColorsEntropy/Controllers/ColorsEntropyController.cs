@@ -9,6 +9,7 @@ namespace ColorsEntropy.Controllers {
     class ColorsEntropyController {
 
         private static int keyEdgeLength = 0;
+        private static string linearPassword = "";
 
         // Funcionalidad de claves
         public static void CreateKey(int keyEdgeLength) {
@@ -19,19 +20,15 @@ namespace ColorsEntropy.Controllers {
             return KeyFunctionalities.IsValidKey();
         }
 
-        public static void RemoveKey() {
-            KeyFunctionalities.RemoveKey();
-        }
-
-        public static void EncryptFiles(string[] paths) {
+        public static void EncryptFiles(string[] paths, string linearPassword) {
             Task.Run(() => {
-                KeyFunctionalities.KeyAction(paths, true, Constants.ACTION_TIMES);
+                KeyFunctionalities.KeyAction(paths, true, linearPassword, Constants.ACTION_TIMES);
             });
         }
 
-        public static void DecryptFiles(string[] paths) {
+        public static void DecryptFiles(string[] paths, string linearPassword) {
             Task.Run(() => {
-                KeyFunctionalities.KeyAction(paths, false, Constants.ACTION_TIMES);
+                KeyFunctionalities.KeyAction(paths, false, linearPassword, Constants.ACTION_TIMES);
             });
         }
 
@@ -47,6 +44,14 @@ namespace ColorsEntropy.Controllers {
 
         public static int GetKeyEdgeLength() {
             return keyEdgeLength;
+        }
+
+        public static void SetLinearPassword(string password) {
+            linearPassword = password;
+        }
+
+        public static string GetLinearPassword() {
+            return linearPassword;
         }
 
         public static int CallCEMessageBox(int height, string title, string message, bool acceptAndCancel, Icon icon) {

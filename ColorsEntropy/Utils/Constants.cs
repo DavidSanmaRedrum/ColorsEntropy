@@ -32,8 +32,10 @@ namespace ColorsEntropy.Utils {
         // Clave
         public const string SAVE_KEY_PATH = "./KEY.jpg";
         public const string COLORS_ENTROPY_EXTENSION = ".cee";
+        public const string COLORS_ENTROPY_PASSWORD_EXTENSION = ".cep";
         public const string ONLY_NUMBERS_REGEX = @"\d+";
         public const string OPEN_FILE_DIALOG_FILTER = "ALL|*.*|.CEE|*.cee";
+        public const string OPEN_FILE_DIALOG_PASSWORD_FILTER = "ALL|*.*|.CEP|*.cep";
         public const string ENCRYPT_TEXT = "CIFRAR";
         public const string DECRYPT_TEXT = "DESCIFRAR";
         public const string NEUTRAL_STATE = "· · ·";
@@ -41,7 +43,12 @@ namespace ColorsEntropy.Utils {
         public const string DISABLED_STATE_ACTION_BUTTON = "# # #";
         public const string SCREEN_CLICK = "MODO: CLIC EN EL PANEL";
         public static int[] KEY_SIZES = { 10, 15, 20, 25, 30, 35, 40 };
-              
+
+
+        // Contraseña
+        public const int PASSWORD_MIN_LENGTH = 10;
+        public const string ACCEPT = "ACCEPT";
+
         public static byte[] DISORDERED_BYTE_LEGEND = {
             135,
             30,

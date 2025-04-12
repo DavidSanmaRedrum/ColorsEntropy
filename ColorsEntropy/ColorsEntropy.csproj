@@ -81,6 +81,12 @@
     <Compile Include="Views\CreateKeyView.Designer.cs">
       <DependentUpon>CreateKeyView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\SetPasswordView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SetPasswordView.Designer.cs">
+      <DependentUpon>SetPasswordView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SetPasswordView.resx">
+      <DependentUpon>SetPasswordView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -150,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenFileImagePassword.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

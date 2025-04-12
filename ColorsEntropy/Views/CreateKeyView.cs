@@ -15,10 +15,6 @@ namespace ColorsEntropy.Views {
             this.ShowDialog();
         }
 
-        private void CreateKeyView_Shown(object sender, EventArgs e) {
-            this.StartPosition = FormStartPosition.CenterScreen;
-        }
-
         private void CreateKeyView_Load(object sender, EventArgs e) {
             Color black = Constants.CONTROLS_GENERAL_COLOR_ONE;
             Color white = Color.White;

@@ -36,7 +36,6 @@ namespace ColorsEntropy {
                 this.MaximizeBox = false;
                 this.actionLbl.ForeColor = Color.White;
                 this.optionsStripTs.BackColor = Constants.CONTROLS_GENERAL_COLOR_TWO;
-                this.openFileOfl.Filter = Constants.OPEN_FILE_DIALOG_FILTER;
                 this.openFileOfl.Multiselect = true;
                 this.ResetSystem();
                 this.Opacity = 1;
@@ -44,20 +43,41 @@ namespace ColorsEntropy {
         }
 
         private void ActionFileBtn_Click(object sender, EventArgs e) {
+            string linearPassword = ColorsEntropyController.GetLinearPassword();
             if (!action) {
-                ColorsEntropyController.EncryptFiles(this.filePaths);
+                ColorsEntropyController.EncryptFiles(this.filePaths, linearPassword);
             } else {
-                ColorsEntropyController.DecryptFiles(this.filePaths);
+                ColorsEntropyController.DecryptFiles(this.filePaths, linearPassword);
             }
             this.ResetSystem();
         }
 
         private void OpenFileBtn_Click(object sender, EventArgs e) {
+            ColorsEntropyController.SetLinearPassword("");
+            this.openFileOfl.Filter = Constants.OPEN_FILE_DIALOG_FILTER;
             if (this.openFileOfl.ShowDialog() == DialogResult.OK) {
                 this.filePaths = this.openFileOfl.FileNames;
                 this.actionLbl.Text = Constants.SCREEN_CLICK;
                 this.cancelActionBtn.Enabled = true;
+                this.passwordActionBtn.Enabled = false;
                 this.openFileBtn.Enabled = false;
+            } else {
+                ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.CANCELED_OPERATION, false, this.icon);
+            }
+        }
+
+        private void passwordActionBtn_Click(object sender, EventArgs e) {
+            this.openFileOfl.Filter = Constants.OPEN_FILE_DIALOG_PASSWORD_FILTER;
+            if (this.openFileOfl.ShowDialog() == DialogResult.OK) {
+                SetPasswordView passwordView = new SetPasswordView();
+                passwordView.ShowDialog();
+                this.filePaths = this.openFileOfl.FileNames;
+                if (ColorsEntropyController.GetLinearPassword().Length >= Constants.PASSWORD_MIN_LENGTH) {
+                    this.actionLbl.Text = Constants.SCREEN_CLICK;
+                    this.cancelActionBtn.Enabled = true;
+                    this.passwordActionBtn.Enabled = false;
+                    this.openFileBtn.Enabled = false;
+                }
             } else {
                 ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.CANCELED_OPERATION, false, this.icon);
             }
@@ -95,6 +115,7 @@ namespace ColorsEntropy {
             this.actionFileBtn.Enabled = false;
             this.openFileBtn.Enabled = true;
             this.cancelActionBtn.Enabled = false;
+            this.passwordActionBtn.Enabled = true;
             this.filePaths = null;
             this.openFileOfl.FileName = "";
             this.BackColor = Constants.CONTROLS_GENERAL_COLOR_ONE;
@@ -103,6 +124,6 @@ namespace ColorsEntropy {
             this.actionLbl.ForeColor = Color.White;
             this.action = true;
         }
-        
+
     }
 }
