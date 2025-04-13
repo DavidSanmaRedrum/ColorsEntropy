@@ -152,9 +152,6 @@
     <None Include="Resources\AboutBigImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OnlyText.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\CancelActionImage.png" />
   </ItemGroup>
   <ItemGroup>

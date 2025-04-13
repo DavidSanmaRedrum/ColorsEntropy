@@ -47,7 +47,7 @@ namespace ColorsEntropy.Utils {
 
         // Contraseña
         public const int PASSWORD_MIN_LENGTH = 10;
-        public const string ACCEPT = "ACCEPT";
+        public const string ACCEPT = "ACEPTAR";
 
         public static byte[] DISORDERED_BYTE_LEGEND = {
             135,

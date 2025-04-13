@@ -2,6 +2,7 @@
 using ColorsEntropy.Utils;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ColorsEntropy.Views {
@@ -31,8 +32,7 @@ namespace ColorsEntropy.Views {
             this.acceptBtn.Enabled = false;
             this.acceptBtn.Text = Constants.DISABLED_STATE_ACTION_BUTTON;
             this.cancelBtn.ForeColor = black;
-            this.passwordTextBox.PasswordChar = '·';
-
+            this.passwordTextBox.PasswordChar = '*';
         }
 
         private void acceptBtn_Click(object sender, EventArgs e) {
@@ -49,12 +49,19 @@ namespace ColorsEntropy.Views {
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e) {
             string pass = this.passwordTextBox.Text;
-            if (pass.Length >= Constants.PASSWORD_MIN_LENGTH) {
+            int passwordMinLen = Constants.PASSWORD_MIN_LENGTH;
+            if (pass.Length >= passwordMinLen) {
                 this.password = pass;
+                this.acceptBtn.ForeColor = Color.DarkGreen;
                 this.acceptBtn.Text = Constants.ACCEPT;
                 this.acceptBtn.Enabled = true;
             } else {
-                this.acceptBtn.Text = Constants.DISABLED_STATE_ACTION_BUTTON;
+                string textButton = "#" + pass.Length + "#";
+                if (pass.Length == 0) {
+                    textButton = Constants.DISABLED_STATE_ACTION_BUTTON;
+                }
+                this.acceptBtn.ForeColor = Color.Black;
+                this.acceptBtn.Text = textButton;
                 this.acceptBtn.Enabled = false;
             }
         }
