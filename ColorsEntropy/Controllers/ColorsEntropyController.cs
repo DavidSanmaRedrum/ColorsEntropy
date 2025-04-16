@@ -26,10 +26,13 @@ namespace ColorsEntropy.Controllers {
             });
         }
 
-        public static void DecryptFiles(string[] paths, string linearPassword) {
-            Task.Run(() => {
-                KeyFunctionalities.KeyAction(paths, false, linearPassword, Constants.ACTION_TIMES);
+        public static bool DecryptFiles(string[] paths, string linearPassword) {
+            bool output = false;
+            Task task = Task.Run(() => { 
+                output = KeyFunctionalities.KeyAction(paths, false, linearPassword, Constants.ACTION_TIMES);
             });
+            task.Wait();
+            return output;
         }
 
         // Vistas:

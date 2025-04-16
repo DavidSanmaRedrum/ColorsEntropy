@@ -61,10 +61,9 @@ namespace ColorsEntropy.Functionalities {
             }
         }
 
-        public static void KeyAction(string[] paths, bool encrypt, string linearPassword, int times) {
+        public static bool KeyAction(string[] paths, bool encrypt, string linearPassword, int times) {
             if (null != linearPassword && linearPassword.Length >= Constants.PASSWORD_MIN_LENGTH) {
-                LinearKeyAction(paths, linearPassword, encrypt, times);
-                return;
+                return LinearKeyAction(paths, linearPassword, encrypt, times);
             }
 
             for (int nPath = 0; nPath < paths.Length; nPath ++) { // Multiselección: Un fichero por iteración
@@ -74,9 +73,9 @@ namespace ColorsEntropy.Functionalities {
                     i = 0; // Renicio del while para una nueva encriptación, si no, no entrará en el while la segunda vez. 
                     // Transposición encriptar
                     if (encrypt) {
-                        Caesar(file, key.Width, encrypt);
+                        Caesar(file, key.Width, 0, encrypt);
                     }
-                    //Console.WriteLine("nLoops: " + time);
+
                     while (i < file.Length) {
                         for (int row = 0; row < key.Height; row++) {
                             for (int col = 0; col < key.Width; col++) {
@@ -102,29 +101,42 @@ namespace ColorsEntropy.Functionalities {
                     }
                     // Transposición desencriptar
                     if (!encrypt) {
-                        Caesar(file, key.Width, encrypt);
+                        Caesar(file, key.Width, 0, encrypt);
                     }
                 }
                 fileFunctionalities.PreparedSaveFile(encrypt, true, paths[nPath], file);
             }
+            return true;
         }
 
-        private static void LinearKeyAction(string[] paths, string key, bool encrypt, int times) {
+        private static bool LinearKeyAction(string[] paths, string key, bool encrypt, int times) {
             int i;
             byte[] file;
+
             for (int nPath = 0; nPath < paths.Length; nPath++) {
                 file = fileFunctionalities.GetFile(paths[nPath]);
+
+                file = PasswordProcess(file, key, encrypt);
+                if (null == file) {
+                    return false;
+                }
+
+                int linearPasswordLen = 0;
+                if (encrypt) {
+                    linearPasswordLen = key.Length;
+                }
+
                 for (int time = 0; time < times; time++) {
                     i = 0;
                     // Transposición encriptar
                     if (encrypt) {
-                        Caesar(file, key.Length, encrypt);
+                        Caesar(file, key.Length, linearPasswordLen, encrypt);
                     }
-                    while (i < file.Length) {
+                    while (i < file.Length - linearPasswordLen) {
                         for (int kPos = 0; kPos < key.Length; kPos++) {
                             ActionControl(encrypt, file[i], key[kPos], i, file);
-                            if (i == file.Length - 1) {
-                                i = file.Length;
+                            if (i == file.Length - linearPasswordLen - 1) {
+                                i = file.Length - linearPasswordLen;
                                 break;
                             };
                             i++;
@@ -132,17 +144,18 @@ namespace ColorsEntropy.Functionalities {
                     }
                     // Transposición desencriptar
                     if (!encrypt) {
-                        Caesar(file, key.Length, encrypt);
+                        Caesar(file, key.Length, linearPasswordLen, encrypt);
                     }
                 }
-                fileFunctionalities.PreparedSaveFile(encrypt, false, paths[nPath], file);
+                fileFunctionalities.PreparedSaveFile(encrypt, false, paths[nPath], file); 
             }
+            return true;
         }
 
         private static void ActionControl(bool mode, int fileValue, int keyValue, int index, byte[] file) {
             int byteLimitMax = Constants.MAX_LIMIT_BYTE + 1;
             if (mode) {
-                int preparedValue = fileValue + keyValue; // Se suma el parámetro del pixel a el valor del byte del fichero.
+                int preparedValue = fileValue + keyValue; // Se suma el parámetro del pixel al valor del byte del fichero.
                 if (preparedValue > Constants.MAX_LIMIT_BYTE) { // Si entra, debe ser mayor a 255
                                                                 // Se resta el máximo de bytes posibles (256) para reducirlo a un valor aceptable en función del pixelParam.
                     preparedValue -= byteLimitMax;
@@ -157,12 +170,13 @@ namespace ColorsEntropy.Functionalities {
             }
         }
 
-        private static void Caesar(byte[] file, int key, bool encrypt) {
+        private static void Caesar(byte[] file, int key, int linearPasswordLen, bool encrypt) {
             byte[] byteLegend = Constants.DISORDERED_BYTE_LEGEND;
             int byteLegendLength = byteLegend.Length;
             int byteLimitMax = Constants.MAX_LIMIT_BYTE + 1;
             int position;
-            for (int i = 0; i < file.Length; i++) {
+
+            for (int i = 0; i < file.Length - linearPasswordLen; i++) {
                 for (int j = 0; j < byteLegendLength; j++) {
                     if (byteLegend[j] == file[i] && encrypt) {
                         position = j + key;
@@ -180,6 +194,47 @@ namespace ColorsEntropy.Functionalities {
                         j = byteLegendLength;
                     }
                 }
+            }
+        }
+
+        private static byte[] PasswordProcess(byte[] file, string password, bool encrypt) {
+            List<byte> preparedFile = file.ToList();
+            int byteLimitMax = Constants.MAX_LIMIT_BYTE + 1;
+            int letterValue;
+
+            if (encrypt) {
+                for (int i = 0; i < password.Length; i++) {
+                    letterValue = (byte)password[i];
+                    if (i == password.Length - 1) {    
+                        letterValue += password[0]; // Ofuscar el último byte con el primer carácter de la contraseña sin cifrar.
+                    } else {
+                        letterValue += password[i + 1];
+                    }
+                    if (letterValue > Constants.MAX_LIMIT_BYTE) {
+                        letterValue -= byteLimitMax;
+                    }
+                    preparedFile.Add((byte)letterValue);
+                }
+                return preparedFile.ToArray();
+            } else {
+                string result = "";
+                byte[] passwordIntoFile = preparedFile.Skip(preparedFile.Count - password.Length).ToArray();
+
+                for (int i = passwordIntoFile.Length - 1; i > -1; i --) {
+                    letterValue = passwordIntoFile[i];
+                    if (i == passwordIntoFile.Length - 1) {
+                        letterValue -= password[0];
+                    } else {
+                        letterValue -= password[i + 1];
+                    }
+                    if (letterValue < 0) {
+                        letterValue += byteLimitMax;
+                    }
+                    result = (char)letterValue + result;
+                }
+                if (!result.Equals(password)) return null;
+                // Borrar el rango de chars de la password
+                return preparedFile.Take(preparedFile.Count - password.Length).ToArray(); // funciona
             }
         }
 
