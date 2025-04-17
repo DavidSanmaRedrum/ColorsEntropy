@@ -47,7 +47,7 @@ namespace ColorsEntropy.Functionalities {
             try {
                 key = new Bitmap(fileFunctionalities.OpenFile(Constants.SAVE_KEY_PATH));
                 int[] keySizes = Constants.KEY_SIZES;
-                if ((!keySizes.Contains(key.Width) || !keySizes.Contains(key.Height)) && key.Height != key.Width) return false;
+                if (!keySizes.Contains(key.Width) || !keySizes.Contains(key.Height) || key.Height != key.Width) return false;
                 for (int row = 0; row < key.Height; row++) {
                     for (int col = 0; col < key.Width; col++) {
                         if (key.GetPixel(row, col).ToString().Split(Constants.COMMA).Contains((Constants.MIN_LIMIT_COLOR_KEY - 1).ToString())) {
