@@ -79,6 +79,8 @@ namespace ColorsEntropy {
                     this.cancelActionBtn.Enabled = true;
                     this.passwordActionBtn.Enabled = false;
                     this.openFileBtn.Enabled = false;
+                } else {
+                    this.ResetSystem();
                 }
             } else {
                 ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_INFO_TITLE, Constants.CANCELED_OPERATION, false, this.icon);

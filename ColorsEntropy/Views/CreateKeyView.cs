@@ -24,7 +24,7 @@ namespace ColorsEntropy.Views {
             this.MaximizeBox = false;
             this.BackColor = black;
             this.FillCombo();
-            this.createKeyBtn.BackColor = black;
+            this.createKeyBtn.ForeColor = black;
             this.createKeyGBox.ForeColor = white;
             this.createKeyCBox.BackColor = black;
             this.createKeyCBox.ForeColor = white;
