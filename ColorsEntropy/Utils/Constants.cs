@@ -31,7 +31,7 @@ namespace ColorsEntropy.Utils {
         
 
         // Clave
-        public const string SAVE_KEY_PATH = "./KEY.jpg";
+        public const string SAVE_KEY_PATH = "./KEY.png";
         public const string COLORS_ENTROPY_EXTENSION = ".cee";
         public const string COLORS_ENTROPY_PASSWORD_EXTENSION = ".cep";
         public const string ONLY_NUMBERS_REGEX = @"\d+";

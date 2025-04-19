@@ -40,7 +40,7 @@ namespace ColorsEntropy.Functionalities {
                 }
             }
 
-            key.Save(Constants.SAVE_KEY_PATH, ImageFormat.Jpeg);
+            key.Save(Constants.SAVE_KEY_PATH, ImageFormat.Png);
         }
 
         public static bool IsValidKey() { // Haré que devuelva mensajes de texto.
