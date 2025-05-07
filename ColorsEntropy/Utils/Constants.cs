@@ -27,7 +27,6 @@ namespace ColorsEntropy.Utils {
         public const string COLORS_MSG_BOX_ERROR_TITLE = "Error";
         public const string KEY_FORMAT_ERROR = "CLAVE - La clave tiene un formato erróneo.";
         public const string NEW_KEY_CREATED = "CLAVE - Se ha creado la clave.";
-        public const string PASSWORD_NOT_MATCH = "Contraseña incorrecta.";
         
 
         // Clave

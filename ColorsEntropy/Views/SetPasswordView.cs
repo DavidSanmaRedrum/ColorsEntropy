@@ -2,7 +2,6 @@
 using ColorsEntropy.Utils;
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace ColorsEntropy.Views {

@@ -47,9 +47,7 @@ namespace ColorsEntropy {
             if (!action) {
                 ColorsEntropyController.EncryptFiles(this.filePaths, linearPassword);
             } else {
-                if (!ColorsEntropyController.DecryptFiles(this.filePaths, linearPassword)) {
-                    ColorsEntropyController.CallCEMessageBox(Constants.COLORS_MSG_BOX_HEIGHT, Constants.COLORS_MSG_BOX_ERROR_TITLE, Constants.PASSWORD_NOT_MATCH, false, this.icon);
-                }
+                ColorsEntropyController.DecryptFiles(this.filePaths, linearPassword);
             }
             this.ResetSystem();
         }

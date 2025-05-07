@@ -1,5 +1,4 @@
 ﻿using ColorsEntropy.Utils;
-using System;
 using System.IO;
 
 namespace ColorsEntropy.Functionalities {
@@ -23,18 +22,25 @@ namespace ColorsEntropy.Functionalities {
             File.Move(currentPath, preparedCurrentPath);
         }
 
-        public void DeleteFile(string path) {
-            File.Delete(path);
-        }
-
         public void PreparedSaveFile(bool mode, bool actionType, string currentPath, byte[] file) {
-            this.SaveFile(currentPath, file); // Sobreescribir
+            
 
             string extension = Constants.COLORS_ENTROPY_EXTENSION;
-            if (!actionType) {
+            if (!actionType && mode) { // Contraseña encriptado
                 extension = Constants.COLORS_ENTROPY_PASSWORD_EXTENSION;
+                this.SaveFile(currentPath, file); // Sobreescribir
+            } else if (!actionType) { // Contraseña desencriptado
+                extension = Constants.COLORS_ENTROPY_PASSWORD_EXTENSION;
+                string path = this.PrepareCurrentPath(currentPath, extension, mode);
+                this.SaveFile(this.CreateNewFilename(path), file);
+                return;
+            } else { // Key
+                this.SaveFile(currentPath, file); // Sobreescribir
             }
+            this.RenameFile(currentPath, this.PrepareCurrentPath(currentPath, extension, mode));
+        }
 
+        private string PrepareCurrentPath(string currentPath, string extension, bool mode) {
             string preparedCurrentPath = currentPath;
             if (mode) {
                 preparedCurrentPath = currentPath + extension;
@@ -43,7 +49,15 @@ namespace ColorsEntropy.Functionalities {
                     preparedCurrentPath = preparedCurrentPath.Substring(0, preparedCurrentPath.LastIndexOf("."));
                 }
             }
-            this.RenameFile(currentPath, preparedCurrentPath);
+            return preparedCurrentPath;
         }
+
+        private string CreateNewFilename(string path) {
+            string[] dirs = path.Split('\\');
+            string filename = path.Substring(path.LastIndexOf("\\") + 1, dirs[dirs.Length - 1].Length);
+            string newFileName = '_' + filename;
+            return path.Replace(filename, newFileName);
+        }
+
     }
 }
